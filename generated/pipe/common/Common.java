@@ -3764,17 +3764,22 @@ public final class Common {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated int32 ChunkId = 1;</code>
+     * <code>required int32 file_id = 2;</code>
      */
-    java.util.List<java.lang.Integer> getChunkIdList();
+    boolean hasFileId();
     /**
-     * <code>repeated int32 ChunkId = 1;</code>
+     * <code>required int32 file_id = 2;</code>
      */
-    int getChunkIdCount();
+    int getFileId();
+
     /**
-     * <code>repeated int32 ChunkId = 1;</code>
+     * <code>required int32 ChunkId = 1;</code>
      */
-    int getChunkId(int index);
+    boolean hasChunkId();
+    /**
+     * <code>required int32 ChunkId = 1;</code>
+     */
+    int getChunkId();
   }
   /**
    * <pre>
@@ -3793,7 +3798,8 @@ public final class Common {
       super(builder);
     }
     private WriteResponse() {
-      chunkId_ = java.util.Collections.emptyList();
+      fileId_ = 0;
+      chunkId_ = 0;
     }
 
     @java.lang.Override
@@ -3825,24 +3831,13 @@ public final class Common {
               break;
             }
             case 8: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                chunkId_ = new java.util.ArrayList<java.lang.Integer>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              chunkId_.add(input.readInt32());
+              bitField0_ |= 0x00000002;
+              chunkId_ = input.readInt32();
               break;
             }
-            case 10: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
-                chunkId_ = new java.util.ArrayList<java.lang.Integer>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              while (input.getBytesUntilLimit() > 0) {
-                chunkId_.add(input.readInt32());
-              }
-              input.popLimit(limit);
+            case 16: {
+              bitField0_ |= 0x00000001;
+              fileId_ = input.readInt32();
               break;
             }
           }
@@ -3853,9 +3848,6 @@ public final class Common {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          chunkId_ = java.util.Collections.unmodifiableList(chunkId_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -3872,26 +3864,35 @@ public final class Common {
               pipe.common.Common.WriteResponse.class, pipe.common.Common.WriteResponse.Builder.class);
     }
 
+    private int bitField0_;
+    public static final int FILE_ID_FIELD_NUMBER = 2;
+    private int fileId_;
+    /**
+     * <code>required int32 file_id = 2;</code>
+     */
+    public boolean hasFileId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 file_id = 2;</code>
+     */
+    public int getFileId() {
+      return fileId_;
+    }
+
     public static final int CHUNKID_FIELD_NUMBER = 1;
-    private java.util.List<java.lang.Integer> chunkId_;
+    private int chunkId_;
     /**
-     * <code>repeated int32 ChunkId = 1;</code>
+     * <code>required int32 ChunkId = 1;</code>
      */
-    public java.util.List<java.lang.Integer>
-        getChunkIdList() {
+    public boolean hasChunkId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 ChunkId = 1;</code>
+     */
+    public int getChunkId() {
       return chunkId_;
-    }
-    /**
-     * <code>repeated int32 ChunkId = 1;</code>
-     */
-    public int getChunkIdCount() {
-      return chunkId_.size();
-    }
-    /**
-     * <code>repeated int32 ChunkId = 1;</code>
-     */
-    public int getChunkId(int index) {
-      return chunkId_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3900,14 +3901,25 @@ public final class Common {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasFileId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasChunkId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (int i = 0; i < chunkId_.size(); i++) {
-        output.writeInt32(1, chunkId_.get(i));
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(1, chunkId_);
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(2, fileId_);
       }
       unknownFields.writeTo(output);
     }
@@ -3917,14 +3929,13 @@ public final class Common {
       if (size != -1) return size;
 
       size = 0;
-      {
-        int dataSize = 0;
-        for (int i = 0; i < chunkId_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(chunkId_.get(i));
-        }
-        size += dataSize;
-        size += 1 * getChunkIdList().size();
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, chunkId_);
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, fileId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3943,8 +3954,16 @@ public final class Common {
       pipe.common.Common.WriteResponse other = (pipe.common.Common.WriteResponse) obj;
 
       boolean result = true;
-      result = result && getChunkIdList()
-          .equals(other.getChunkIdList());
+      result = result && (hasFileId() == other.hasFileId());
+      if (hasFileId()) {
+        result = result && (getFileId()
+            == other.getFileId());
+      }
+      result = result && (hasChunkId() == other.hasChunkId());
+      if (hasChunkId()) {
+        result = result && (getChunkId()
+            == other.getChunkId());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3956,9 +3975,13 @@ public final class Common {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getChunkIdCount() > 0) {
+      if (hasFileId()) {
+        hash = (37 * hash) + FILE_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getFileId();
+      }
+      if (hasChunkId()) {
         hash = (37 * hash) + CHUNKID_FIELD_NUMBER;
-        hash = (53 * hash) + getChunkIdList().hashCode();
+        hash = (53 * hash) + getChunkId();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4083,8 +4106,10 @@ public final class Common {
       }
       public Builder clear() {
         super.clear();
-        chunkId_ = java.util.Collections.emptyList();
+        fileId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        chunkId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -4108,11 +4133,16 @@ public final class Common {
       public pipe.common.Common.WriteResponse buildPartial() {
         pipe.common.Common.WriteResponse result = new pipe.common.Common.WriteResponse(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          chunkId_ = java.util.Collections.unmodifiableList(chunkId_);
-          bitField0_ = (bitField0_ & ~0x00000001);
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.fileId_ = fileId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
         }
         result.chunkId_ = chunkId_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -4154,15 +4184,11 @@ public final class Common {
 
       public Builder mergeFrom(pipe.common.Common.WriteResponse other) {
         if (other == pipe.common.Common.WriteResponse.getDefaultInstance()) return this;
-        if (!other.chunkId_.isEmpty()) {
-          if (chunkId_.isEmpty()) {
-            chunkId_ = other.chunkId_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureChunkIdIsMutable();
-            chunkId_.addAll(other.chunkId_);
-          }
-          onChanged();
+        if (other.hasFileId()) {
+          setFileId(other.getFileId());
+        }
+        if (other.hasChunkId()) {
+          setChunkId(other.getChunkId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4170,6 +4196,12 @@ public final class Common {
       }
 
       public final boolean isInitialized() {
+        if (!hasFileId()) {
+          return false;
+        }
+        if (!hasChunkId()) {
+          return false;
+        }
         return true;
       }
 
@@ -4192,68 +4224,66 @@ public final class Common {
       }
       private int bitField0_;
 
-      private java.util.List<java.lang.Integer> chunkId_ = java.util.Collections.emptyList();
-      private void ensureChunkIdIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          chunkId_ = new java.util.ArrayList<java.lang.Integer>(chunkId_);
-          bitField0_ |= 0x00000001;
-         }
+      private int fileId_ ;
+      /**
+       * <code>required int32 file_id = 2;</code>
+       */
+      public boolean hasFileId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>repeated int32 ChunkId = 1;</code>
+       * <code>required int32 file_id = 2;</code>
        */
-      public java.util.List<java.lang.Integer>
-          getChunkIdList() {
-        return java.util.Collections.unmodifiableList(chunkId_);
+      public int getFileId() {
+        return fileId_;
       }
       /**
-       * <code>repeated int32 ChunkId = 1;</code>
+       * <code>required int32 file_id = 2;</code>
        */
-      public int getChunkIdCount() {
-        return chunkId_.size();
-      }
-      /**
-       * <code>repeated int32 ChunkId = 1;</code>
-       */
-      public int getChunkId(int index) {
-        return chunkId_.get(index);
-      }
-      /**
-       * <code>repeated int32 ChunkId = 1;</code>
-       */
-      public Builder setChunkId(
-          int index, int value) {
-        ensureChunkIdIsMutable();
-        chunkId_.set(index, value);
+      public Builder setFileId(int value) {
+        bitField0_ |= 0x00000001;
+        fileId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 ChunkId = 1;</code>
+       * <code>required int32 file_id = 2;</code>
        */
-      public Builder addChunkId(int value) {
-        ensureChunkIdIsMutable();
-        chunkId_.add(value);
+      public Builder clearFileId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fileId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int chunkId_ ;
+      /**
+       * <code>required int32 ChunkId = 1;</code>
+       */
+      public boolean hasChunkId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 ChunkId = 1;</code>
+       */
+      public int getChunkId() {
+        return chunkId_;
+      }
+      /**
+       * <code>required int32 ChunkId = 1;</code>
+       */
+      public Builder setChunkId(int value) {
+        bitField0_ |= 0x00000002;
+        chunkId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 ChunkId = 1;</code>
-       */
-      public Builder addAllChunkId(
-          java.lang.Iterable<? extends java.lang.Integer> values) {
-        ensureChunkIdIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, chunkId_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated int32 ChunkId = 1;</code>
+       * <code>required int32 ChunkId = 1;</code>
        */
       public Builder clearChunkId() {
-        chunkId_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
+        chunkId_ = 0;
         onChanged();
         return this;
       }
@@ -9286,6 +9316,12 @@ public final class Common {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (hasWriteResponse()) {
+        if (!getWriteResponse().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       if (hasReadResponse()) {
         if (!getReadResponse().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -9621,6 +9657,11 @@ public final class Common {
       }
 
       public final boolean isInitialized() {
+        if (hasWriteResponse()) {
+          if (!getWriteResponse().isInitialized()) {
+            return false;
+          }
+        }
         if (hasReadResponse()) {
           if (!getReadResponse().isInitialized()) {
             return false;
@@ -10933,25 +10974,26 @@ public final class Common {
       "\n\nUPDATEFILE\020\004B\t\n\007payload\"n\n\tWriteBody\022\017" +
       "\n\007file_id\030\001 \001(\005\022\020\n\010filename\030\002 \002(\t\022\020\n\010fil",
       "e_ext\030\003 \001(\t\022\025\n\005chunk\030\004 \001(\0132\006.Chunk\022\025\n\rnu" +
-      "m_of_chunks\030\005 \001(\005\" \n\rWriteResponse\022\017\n\007Ch" +
-      "unkId\030\001 \003(\005\"A\n\005Chunk\022\020\n\010chunk_id\030\001 \002(\005\022\022" +
-      "\n\nchunk_data\030\006 \002(\014\022\022\n\nchunk_size\030\t \001(\005\"S" +
-      "\n\010ReadBody\022\020\n\010filename\030\001 \001(\t\022\017\n\007file_id\030" +
-      "\002 \001(\003\022\020\n\010chunk_id\030\003 \001(\003\022\022\n\nchunk_size\030\004 " +
-      "\001(\003\"\202\001\n\014ReadResponse\022\017\n\007file_id\030\001 \001(\t\022\020\n" +
-      "\010filename\030\002 \002(\t\022\020\n\010file_ext\030\003 \001(\t\022\025\n\rnum" +
-      "_of_chunks\030\004 \001(\005\022&\n\016chunk_location\030\005 \003(\013" +
-      "2\016.ChunkLocation\"5\n\rChunkLocation\022\017\n\007chu",
-      "nkid\030\001 \001(\005\022\023\n\004node\030\002 \003(\0132\005.Node\"3\n\004Node\022" +
-      "\017\n\007node_id\030\001 \002(\005\022\014\n\004host\030\002 \002(\t\022\014\n\004port\030\003" +
-      " \002(\005\"\350\001\n\010Response\022\020\n\010filename\030\003 \001(\t\022\'\n\rw" +
-      "riteResponse\030\004 \001(\0132\016.WriteResponseH\000\022%\n\014" +
-      "readResponse\030\005 \001(\0132\r.ReadResponseH\000\"K\n\014R" +
-      "esponseType\022\014\n\010READFILE\020\001\022\r\n\tWRITEFILE\020\002" +
-      "\022\016\n\nDELETEFILE\020\003\022\016\n\nUPDATEFILE\020\004\"\"\n\006Stat" +
-      "us\022\013\n\007Success\020\001\022\013\n\007Failure\020\002B\t\n\007payload\"" +
-      "6\n\007Failure\022\n\n\002id\030\001 \002(\005\022\016\n\006ref_id\030\002 \001(\005\022\017" +
-      "\n\007message\030\003 \001(\tB\017\n\013pipe.commonH\001"
+      "m_of_chunks\030\005 \001(\005\"1\n\rWriteResponse\022\017\n\007fi" +
+      "le_id\030\002 \002(\005\022\017\n\007ChunkId\030\001 \002(\005\"A\n\005Chunk\022\020\n" +
+      "\010chunk_id\030\001 \002(\005\022\022\n\nchunk_data\030\006 \002(\014\022\022\n\nc" +
+      "hunk_size\030\t \001(\005\"S\n\010ReadBody\022\020\n\010filename\030" +
+      "\001 \001(\t\022\017\n\007file_id\030\002 \001(\003\022\020\n\010chunk_id\030\003 \001(\003" +
+      "\022\022\n\nchunk_size\030\004 \001(\003\"\202\001\n\014ReadResponse\022\017\n" +
+      "\007file_id\030\001 \001(\t\022\020\n\010filename\030\002 \002(\t\022\020\n\010file" +
+      "_ext\030\003 \001(\t\022\025\n\rnum_of_chunks\030\004 \001(\005\022&\n\016chu" +
+      "nk_location\030\005 \003(\0132\016.ChunkLocation\"5\n\rChu",
+      "nkLocation\022\017\n\007chunkid\030\001 \001(\005\022\023\n\004node\030\002 \003(" +
+      "\0132\005.Node\"3\n\004Node\022\017\n\007node_id\030\001 \002(\005\022\014\n\004hos" +
+      "t\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"\350\001\n\010Response\022\020\n\010fi" +
+      "lename\030\003 \001(\t\022\'\n\rwriteResponse\030\004 \001(\0132\016.Wr" +
+      "iteResponseH\000\022%\n\014readResponse\030\005 \001(\0132\r.Re" +
+      "adResponseH\000\"K\n\014ResponseType\022\014\n\010READFILE" +
+      "\020\001\022\r\n\tWRITEFILE\020\002\022\016\n\nDELETEFILE\020\003\022\016\n\nUPD" +
+      "ATEFILE\020\004\"\"\n\006Status\022\013\n\007Success\020\001\022\013\n\007Fail" +
+      "ure\020\002B\t\n\007payload\"6\n\007Failure\022\n\n\002id\030\001 \002(\005\022" +
+      "\016\n\006ref_id\030\002 \001(\005\022\017\n\007message\030\003 \001(\tB\017\n\013pipe",
+      ".commonH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10994,7 +11036,7 @@ public final class Common {
     internal_static_WriteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_WriteResponse_descriptor,
-        new java.lang.String[] { "ChunkId", });
+        new java.lang.String[] { "FileId", "ChunkId", });
     internal_static_Chunk_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_Chunk_fieldAccessorTable = new

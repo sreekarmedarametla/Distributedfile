@@ -148,6 +148,12 @@ public class CandidateState implements RaftState{
 		  {
 			  return;
 		  }
+		
+		public void responseToChuckSent(WorkMessage msg)
+		  {
+			return;  
+		  }
+		
 	
 	
 }

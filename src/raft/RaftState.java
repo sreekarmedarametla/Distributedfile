@@ -21,6 +21,9 @@ public interface RaftState {
 	public void receivedHeartBeat(WorkMessage msg);
 	public void receivedLogToWrite(CommandMessage msg);
 	public void chunkReceived(WorkMessage msg);
+	public void responseToChuckSent(WorkMessage msg);
+	
+	
 	
 
 
