@@ -109,10 +109,11 @@ public class WorkHandler extends SimpleChannelInboundHandler<WorkMessage> {
 				state.getManager().getCurrentState().receivedVoteReply(msg);
 				}				
 			else
-			if (msg.hasLeader()) {							
+			if (msg.hasLeader()&&!msg.hasRequest()) {							
 				state.getManager().getCurrentState().receivedHeartBeat(msg);
 				System.out.println("after has leader recv hb");
-			} else if (msg.hasErr()) {
+			} else if (msg.hasErr()) 
+			{
 				Failure err = msg.getErr();
 				logger.error("failure from " + msg.getHeader().getNodeId());
 			    PrintUtil.printFailure(err);
@@ -120,7 +121,7 @@ public class WorkHandler extends SimpleChannelInboundHandler<WorkMessage> {
 				state.getManager().getEdgeMonitor().createOutBoundIfNew(msg.getHeader().getNodeId(),msg.getAddnewnode().getHost(),msg.getAddnewnode().getPort());							
 			}else if(msg.getRequest().hasRwb())
 			{
-				System.out.println("is it fucking here"); 
+				System.out.println("is it fucking here in workhandler"); 
 				state.getManager().getCurrentState().chunkReceived(msg);
 			}else if(msg.getResponse().hasWriteResponse())
 			{

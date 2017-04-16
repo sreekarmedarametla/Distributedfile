@@ -27,7 +27,8 @@ public class LeaderState implements RaftState {
  	public synchronized void process() { 
 		System.out.println("In leaders process method"); 
 	 	try{
-	 		  
+	 		  if(chunkMessageQueue.isEmpty())
+	 		  {	  
 			    for(EdgeInfo ei:Manager.getEdgeMonitor().getOutBoundEdges().map.values())
 			    {
 				  if(ei.isActive()&&ei.getChannel()!=null)
@@ -36,7 +37,9 @@ public class LeaderState implements RaftState {
 					System.out.println("sent hb to"+ei.getRef());
 					clusterSize++;
 				    }				
+			    
 			    }
+	 		  } 
 			     if(!chunkMessageQueue.isEmpty())
 			     {
 			    	 System.out.println("before taking message "+ chunkMessageQueue.size());
@@ -44,7 +47,7 @@ public class LeaderState implements RaftState {
 					 {
 						if(ei.isActive()&&ei.getChannel()!=null)
 						{							
-							Manager.getEdgeMonitor().sendMessage(chunkMessageQueue.take());
+							Manager.getEdgeMonitor().sendMessage(createAppendandHeartbeat());
 							System.out.println("after taking message queue size "+ chunkMessageQueue.size());
 							
 		                  
@@ -148,7 +151,7 @@ public synchronized WorkMessage	createAppendandHeartbeat()
 	wbs.setLeader(lb);
 	wbs.setSecret(10);	
 	wbs.setRequest(rb);
-	System.out.println("i am working fine from appendentry methosd");
+	System.out.println("i am working fine from appendentry method");
 	PrintUtil.printWork(wbs.build());
 	
 	return wbs.build();	
@@ -285,13 +288,7 @@ public void addToTemporaryQueue(WorkMessage msg)
 				clusterSize=0;
 				logCount=0;
 							
-			}
-		  
-		  
-		  
-		  
-		  
-		  
+			}		  
 	  }
 	 
 }
